@@ -1,6 +1,7 @@
 import { Chart } from "react-google-charts";
 import styles from "./PagAdmin.module.css";
 import { useState } from "react";
+import PopupEdicaoADM from "../Popups/PopupEdicaoADM";
 
 export const data = [
   ["Task", "Hours Per Day"],
@@ -9,7 +10,7 @@ export const data = [
 
 export default function Tabelas({ usersAll, usersActions }) {
 
-
+  const [IsOpenPopup, setIsOpenPopup] = useState(false)
   const [paginaAtualUsers, setPaginaAtualUsers] = useState(1)
   const RegistrosPaginaUsers = 10;
   const ultimoIndexUsers = paginaAtualUsers * RegistrosPaginaUsers;
@@ -161,9 +162,10 @@ export default function Tabelas({ usersAll, usersActions }) {
                         </a>
                       </span>
                       <span className={styles.editar}>
-                        <a href="#">
+                        <a href="#" onClick={setIsOpenPopup.bind(IsOpenPopup, true)}>
                           <img src="Imagens/edição.png" alt="editar" />
-                        </a>
+                        </a>  
+                        {IsOpenPopup && <PopupEdicaoADM setIsOpenPopup={setIsOpenPopup} />}
                       </span>
                     </td>
                     <td>{item.to_char}</td>
