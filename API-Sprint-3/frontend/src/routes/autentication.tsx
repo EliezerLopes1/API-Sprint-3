@@ -1,11 +1,39 @@
-import { Navigate } from "react-router-dom"
-import Swal from "sweetalert2"
+import { Navigate } from 'react-router-dom'
 
-export function PrivateRoute({ children }) {
+export function PrivateRoute({ children }){
     const dados = {
         id: localStorage.getItem('key_id'),
-        email: localStorage.getItem('key_email')
+        tipo: localStorage.getItem('key_tipo')
     }
 
-    return dados.id !== null ? children : <Navigate to={"/login"} />
+    if (dados.id !== null) {
+        return children
+    } else {
+        return <Navigate to={'/login'} />
+    }
+
+}
+
+export function PrivateRouteAdmin({ children }) {
+    const dados = {
+        id: localStorage.getItem('key_id'),
+        tipo: localStorage.getItem('key_tipo')
+    }
+
+    return dados.tipo === 'Administrador' ? children : <Navigate to={'/user'} />
+}
+
+export function PrivateRouteToken({ children }){
+    const dados = localStorage.getItem('email_para_token')
+
+    return dados !== null ? children : <Navigate to={'/token'} />
+
+}
+
+export function PrivateRouteSenha({ children }){
+    const dados = {
+        token: localStorage.getItem('token'),
+    }
+
+    return dados.token !== null ? children : <Navigate to={'/token/confirmar-token-senha/inserir-token-senha'} />
 }

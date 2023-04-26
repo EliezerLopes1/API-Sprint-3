@@ -5,6 +5,7 @@ export default function Navbar(){
     const removeSessao = () => {
         localStorage.removeItem('key_id')
         localStorage.removeItem('key_usuario')
+        localStorage.removeItem('key_tipo')
     }
     
     return(
